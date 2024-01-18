@@ -1,4 +1,4 @@
-package com.nebulashrine.thpassport.mysqlEntity;
+package com.nebulashrine.thpassport;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

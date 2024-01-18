@@ -1,4 +1,4 @@
-package com.nebulashrine.thpassport.response;
+package com.nebulashrine.thpassport;
 
 public enum StatusCode {
 
