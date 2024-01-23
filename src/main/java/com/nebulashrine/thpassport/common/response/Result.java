@@ -14,9 +14,9 @@ public class Result<T> {
     // 返回数据
     private T data;
 
-    public Result(){};
+    private Result(){};
 
-    public Result(int statusCode, String message){
+    private Result(int statusCode, String message){
         this.statusCode = statusCode;
         this.message = message;
     }
