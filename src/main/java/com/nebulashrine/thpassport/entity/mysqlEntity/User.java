@@ -1,9 +1,6 @@
 package com.nebulashrine.thpassport.entity.mysqlEntity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +11,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
@@ -46,7 +44,7 @@ public class User {
 
     private String signature;
 
-    private String profile;
+    private String description;
 
     private String personalWebsite;
 
@@ -60,5 +58,7 @@ public class User {
 
     private boolean isAuthorized;
 
-    private String rank;
+    private String userRank;
+
+    private String clientUUID;
 }
