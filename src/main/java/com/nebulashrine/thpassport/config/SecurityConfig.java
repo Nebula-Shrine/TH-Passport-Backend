@@ -18,9 +18,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> {
-            authorize.requestMatchers("/webjars/**", "/login", "/register", "assets/**", "/error").permitAll()
-                    .requestMatchers("/changePassword", "/changeIntroduction").hasAuthority(Authority.USER.getAuthority())
-                    .requestMatchers("/user").authenticated()
+            authorize.requestMatchers("/webjars/**", "/login", "register", "assets/**", "/user/checkUserPhone").permitAll()
+                    .requestMatchers("/changePassword", "/changeIntroduction").hasAnyAuthority(Authority.USER.getAuthority(), Authority.ADMIN.getAuthority(), Authority.OAM.getAuthority())
                     .anyRequest().authenticated();
         })
 //                配置登陆页面
