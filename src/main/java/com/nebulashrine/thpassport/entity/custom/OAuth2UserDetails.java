@@ -1,12 +1,25 @@
 package com.nebulashrine.thpassport.entity.custom;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nebulashrine.thpassport.entity.mysqlEntity.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSerialize
 public class OAuth2UserDetails implements UserDetails {
 
 
@@ -18,6 +31,8 @@ public class OAuth2UserDetails implements UserDetails {
         this.isDeleted = user.isDeleted();
         this.isAuthorized = user.isAuthorized();
         this.uuid = user.getUuid();
+//        setAuthorities(user.getAuthority());
+//        this.authorities = user.getAuthority();
     }
 
     private int id;
@@ -34,10 +49,32 @@ public class OAuth2UserDetails implements UserDetails {
 
     private boolean isAuthorized;
 
+    @JsonIgnore
+    private Collection<? extends GrantedAuthority> authorities = new ArrayList<>(){{add(new SimpleGrantedAuthority("ADMIN"));}};
+
+    private void setAuthorities(String authorities){
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            String[] strings = authorities.split(",");
+            ArrayList<GrantedAuthority> list = new ArrayList<>();
+            for (String string : strings) {
+                list.add(new SimpleGrantedAuthority(string));
+            }
+            this.authorities = list;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        ArrayList<GrantedAuthority> list = new ArrayList<>();
+        for (GrantedAuthority authority : authorities) {
+            list.add(authority);
+        }
+        return list;
     }
 
     @Override

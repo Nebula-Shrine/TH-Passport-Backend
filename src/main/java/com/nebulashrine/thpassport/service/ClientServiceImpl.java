@@ -1,7 +1,9 @@
 package com.nebulashrine.thpassport.service;
 
 import com.nebulashrine.thpassport.entity.DTO.ClientDTO;
+import com.nebulashrine.thpassport.repository.UserRepo;
 import com.nebulashrine.thpassport.service.serviceInterface.ClientService;
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +13,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.UUID;
@@ -25,6 +28,9 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserRepo userRepo;
+
     /**
      *
      * @param clientDTO
@@ -33,7 +39,8 @@ public class ClientServiceImpl implements ClientService {
      * @see RegisteredClient
      */
     @Override
-    public RegisteredClient registerClient(ClientDTO clientDTO) {
+    @Transactional
+    public @Nullable RegisteredClient registerClient(ClientDTO clientDTO, String userUUID) {
         RegisteredClient findByID = registeredClientRepository.findByClientId(clientDTO.getClientID());
         if (!ObjectUtils.isEmpty(findByID)){
             return null;
@@ -53,7 +60,7 @@ public class ClientServiceImpl implements ClientService {
                 .build();
 
         registeredClientRepository.save(registeredClient);
-
+        userRepo.addRegisteredClient(userUUID, registeredClient.getId());
         return registeredClient;
     }
 }

@@ -20,8 +20,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String uuid) throws UsernameNotFoundException {
-        User user = userRepo.findAllByUuid(uuid);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepo.findAllByUsername(username);
         if (user == null){
             return null;
         }
