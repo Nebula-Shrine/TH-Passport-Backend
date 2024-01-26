@@ -48,7 +48,7 @@ class ThPassportApplicationTests {
         clientDTO.setClientSecret("123456");
         clientDTO.setRedirectURI("http://127.0.0.1:8080/index");
         clientDTO.setClientName("testClient");
-        clientService.registerClient(clientDTO, "0f36f9b9-eef9-455e-b1d8-5aac5d726bb5");
+        clientService.registerClient(clientDTO, "a14a533a279e");
     }
 
 }

@@ -13,7 +13,7 @@ spring:
     hikari:
       maximum-pool-size: 100
       auto-commit: true
-      minimum-idle: 10
+      minimum-idle: 100000
       read-only: false
       connection-timeout: 30000
       idle-timeout: 600000
@@ -29,3 +29,4 @@ spring:
 
 variables:
   auth_URL: /oauth2/consent
+
