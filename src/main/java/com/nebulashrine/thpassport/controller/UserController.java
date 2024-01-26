@@ -26,4 +26,20 @@ public class UserController {
 		}
 		return Result.succeed(null, "0");
 	}
+	
+	@PostMapping("/user/checkUsername")
+	@ResponseBody
+	public Result checkUsername(String username) {
+		boolean userExistsByUsername = this.userService.isUserExistsByUsername(username);
+		if(userExistsByUsername){
+			return Result.succeed(null, "1");
+		}
+		return Result.succeed(null, "0");
+	}
+	
+	@PostMapping("/user/register")
+	@ResponseBody
+	public  Result register(String username, String password, String phone) {
+	
+	}
 }

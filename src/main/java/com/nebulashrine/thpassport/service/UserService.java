@@ -20,4 +20,11 @@ public class UserService {
         System.out.println(ObjectUtils.isEmpty(user));
         return !ObjectUtils.isEmpty(user);
     }
+	
+    public boolean isUserExistsByUsername(String username){
+        User user = userRepo.findAllByUsername(username);
+        return !ObjectUtils.isEmpty(user);
+    }
+    
+    public
 }
