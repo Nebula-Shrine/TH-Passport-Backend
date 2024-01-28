@@ -19,6 +19,13 @@ spring:
       idle-timeout: 600000
       max-lifetime: 1800
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:9090
+
+
   jpa:
     hibernate:
       ddl-auto: update

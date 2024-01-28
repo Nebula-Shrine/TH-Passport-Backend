@@ -3,6 +3,7 @@ package com.nebulashrine.thpassport.controller;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
@@ -134,6 +135,7 @@ public class AuthorizationController {
     }
     @ResponseBody
     @GetMapping("/user")
+    @PreAuthorize("hasAuthority('SCOPE_message.read')")
     public Map<String,Object> user(Principal principal) {
         if (!(principal instanceof JwtAuthenticationToken token)) {
             return Collections.emptyMap();

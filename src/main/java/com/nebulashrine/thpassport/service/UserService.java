@@ -25,6 +25,5 @@ public class UserService {
         User user = userRepo.findAllByUsername(username);
         return !ObjectUtils.isEmpty(user);
     }
-    
-    public
+
 }
