@@ -37,9 +37,9 @@ public class UserController {
 		return Result.succeed(null, "0");
 	}
 	
-	@PostMapping("/user/register")
-	@ResponseBody
-	public  Result register(String username, String password, String phone) {
-	
-	}
+//	@PostMapping("/user/register")
+//	@ResponseBody
+//	public Result register(String username, String password, String phone) {
+//
+//	}
 }
